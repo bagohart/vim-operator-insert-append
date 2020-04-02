@@ -1,0 +1,1 @@
+For the documentation to vim-operator-insert-append, see the corresponding README.md
