@@ -14,14 +14,18 @@ function! operator_insert#OperatorFirstInvocation(type) abort
     if a:type ==# 'char' || ( a:type ==# 'line' && !g:OperatorInsertAppend_linewise_motions_select_whole_lines )
         call setpos(".", getpos("'["))
         startinsert " This is only started after this function!
-        call s:CreateAutocommands()
-        call repeat#set("\<Plug>(OperatorInsert-first-repeat)")
+        if exists('*repeat#set')
+            call s:CreateAutocommands()
+            call repeat#set("\<Plug>(OperatorInsert-first-repeat)")
+        end
     elseif a:type ==# 'line' && g:OperatorInsertAppend_linewise_motions_select_whole_lines
         call setpos(".", getpos("'["))
         normal! 0
         startinsert " This is only started after this function!
-        call s:CreateAutocommands()
-        call repeat#set("\<Plug>(OperatorInsert-first-repeat)")
+        if exists('*repeat#set')
+            call s:CreateAutocommands()
+            call repeat#set("\<Plug>(OperatorInsert-first-repeat)")
+        end
     else
         throw "Called OperatorInsert from mode " . a:type . ". This should never happen!"
     endif

@@ -28,13 +28,17 @@ function! operator_append#OperatorFirstInvocation(type) abort
             normal! `]l
             startinsert
         endif
-        call s:CreateAutocommands()
-        call repeat#set("\<Plug>(OperatorAppend-first-repeat)")
+        if exists('*repeat#set')
+            call s:CreateAutocommands()
+            call repeat#set("\<Plug>(OperatorAppend-first-repeat)")
+        endif
     elseif a:type ==# 'line' && g:OperatorInsertAppend_linewise_motions_select_whole_lines
         normal `]$m]
         startinsert!
-        call s:CreateAutocommands()
-        call repeat#set("\<Plug>(OperatorAppend-first-repeat)")
+        if exists('*repeat#set')
+            call s:CreateAutocommands()
+            call repeat#set("\<Plug>(OperatorAppend-first-repeat)")
+        endif
     else
         throw "Called OperatorAppend from mode " . a:type . ". This should never happen!"
     endif
